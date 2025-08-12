@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavigation()
   initThemeToggle()
   initScrollReveal()
-  // initModal() // Eliminado: el modal de demo ya no es necesario
   initFilters()
   initTasksTable()
   initProgressBars()
@@ -69,57 +68,16 @@ function initNavigation() {
 
 // Theme Toggle
 function initThemeToggle() {
-  const themeToggle = document.getElementById("theme-toggle");
-  const themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
-  const themeToggleLightIcon = document.getElementById("theme-toggle-light-icon");
   const html = document.documentElement;
-
-  // Verificar el tema guardado en localStorage o la preferencia del sistema
-  const savedTheme = localStorage.getItem("theme") || 
-                    (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-
-  // Aplicar el tema guardado
-  if (savedTheme === "dark") {
-    html.classList.add("dark");
-    themeToggleLightIcon.classList.remove("hidden");
-    themeToggleDarkIcon.classList.add("hidden");
-  } else {
-    html.classList.remove("dark");
-    themeToggleLightIcon.classList.add("hidden");
-    themeToggleDarkIcon.classList.remove("hidden");
+  // Forzar tema dark
+  html.classList.add("dark");
+  localStorage.setItem("theme", "dark");
+  
+  // Ocultar el botón de cambio de tema ya que no será necesario
+  const themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) {
+    themeToggle.style.display = "none";
   }
-
-  // Escuchar cambios en la preferencia del sistema
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    if (!localStorage.getItem("theme")) {
-      if (e.matches) {
-        html.classList.add("dark");
-        themeToggleLightIcon.classList.remove("hidden");
-        themeToggleDarkIcon.classList.add("hidden");
-      } else {
-        html.classList.remove("dark");
-        themeToggleLightIcon.classList.add("hidden");
-        themeToggleDarkIcon.classList.remove("hidden");
-      }
-    }
-  });
-
-  // Manejar el clic en el botón de tema
-  themeToggle.addEventListener("click", () => {
-    html.classList.toggle("dark");
-    
-    const isDark = html.classList.contains("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    
-    // Alternar iconos
-    if (isDark) {
-      themeToggleLightIcon.classList.remove("hidden");
-      themeToggleDarkIcon.classList.add("hidden");
-    } else {
-      themeToggleLightIcon.classList.add("hidden");
-      themeToggleDarkIcon.classList.remove("hidden");
-    }
-  });
 }
 
 // Scroll Reveal Animation
@@ -145,34 +103,6 @@ function initScrollReveal() {
   })
 }
 
-// Modal (Eliminado, ya no es necesario)
-/*
-function initModal() {
-  const demoBtn = document.getElementById("demo-btn")
-  const modal = document.getElementById("demo-modal")
-  const closeModal = document.getElementById("close-modal")
-
-  demoBtn.addEventListener("click", () => {
-    modal.classList.remove("hidden")
-    modal.classList.add("show")
-    document.body.style.overflow = "hidden"
-  })
-
-  closeModal.addEventListener("click", () => {
-    modal.classList.add("hidden")
-    modal.classList.remove("show")
-    document.body.style.overflow = "auto"
-  })
-
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.classList.add("hidden")
-      modal.classList.remove("show")
-      document.body.style.overflow = "auto"
-    }
-  })
-}
-*/
 
 // Filters
 function initFilters() {
@@ -470,3 +400,5 @@ if (!("scrollBehavior" in document.documentElement.style)) {
     })
   })
 }
+
+
