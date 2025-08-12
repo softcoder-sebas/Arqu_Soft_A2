@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Minorista - Desarrollo de Sistema</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
+        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <!-- Logo de carrito de compras -->
+                    <i class="fas fa-shopping-cart text-2xl text-blue-600 mr-2"></i>
+                    <span class="text-xl font-bold text-gray-900 dark:text-white">ERP Minorista</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Inicio</a>
+                    <a href="#entregas" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Entregas</a>
+                    <a href="#cronograma" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Cronograma</a>
+                    <a href="#roles" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Roles</a>
+                    <a href="#tecnologias" class="nav-link text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Tecnologías</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" type="button" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                        <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                    
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#inicio" class="mobile-nav-link block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Inicio</a>
+                <a href="#entregas" class="mobile-nav-link block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Entregas</a>
+                <a href="#cronograma" class="mobile-nav-link block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Cronograma</a>
+                <a href="#roles" class="mobile-nav-link block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Roles</a>
+                <a href="#tecnologias" class="mobile-nav-link block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Tecnologías</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="pt-20 pb-16 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 animate-fade-in">
+                    Sistema ERP para
+                    <span class="text-blue-600 dark:text-blue-400">Mercados Minoristas</span>
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 animate-fade-in-delay">
+                    Desarrollo de una solución integral para la gestión de inventarios, ventas y operaciones comerciales
+                </p>
+                <div class="mt-8"></div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Progreso General del Proyecto</h3>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Completado</span>
+                   <span class="text-sm font-semibold text-blue-600 dark:text-blue-400" id="overall-progress-text">25%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                    <div id="overall-progress-bar" class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-1000" style="width: 25%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entregas Section -->
+    <section id="entregas" class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Entregas del Proyecto</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Módulos principales y funcionalidades implementadas</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="delivery-card bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-lightbulb text-green-600 dark:text-green-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Fase 1: Análisis y Diseño</h3>
+                            <span class="text-sm text-green-600 dark:text-green-400 font-medium">Completado</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Evaluación de ventajas/desventajas, definición del problema, solución, justificación, usuario final y retorno de inversión.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-3">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">100%</span>
+                    </div>
+                </div>
+
+                <div class="delivery-card bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-code text-blue-600 dark:text-blue-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Fase 2: Desarrollo Core</h3>
+                            <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">En Progreso</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Implementación de módulos principales como inventarios y ventas.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-3">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">0%</span>
+                    </div>
+                </div>
+
+                <div class="delivery-card bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-cogs text-purple-600 dark:text-purple-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Fase 3: Funcionalidades Avanzadas</h3>
+                            <span class="text-sm text-purple-600 dark:text-purple-400 font-medium">Planificado</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Desarrollo de CRM, reportes y analytics, e integraciones externas.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-3">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">0%</span>
+                    </div>
+                </div>
+
+                <div class="delivery-card bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-check-circle text-orange-600 dark:text-orange-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Fase 4: Testing y Deploy</h3>
+                            <span class="text-sm text-orange-600 dark:text-orange-400 font-medium">Planificado</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Testing integral, optimización de rendimiento y despliegue en producción.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-3">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cronograma Section -->
+    <section id="cronograma" class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Cronograma del Proyecto</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Timeline detallado de desarrollo y entregas</p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative mb-12">
+                <div class="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gray-300 dark:bg-gray-600"></div>
+                
+                <div class="timeline-item relative flex items-center justify-between w-full mb-8">
+                    <div class="timeline-content w-5/12 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                            <span class="text-sm text-green-600 dark:text-green-400 font-medium">Completado</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fase 1: Análisis y Diseño</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Enero - Febrero 2024</p>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>• Evaluación de ventajas y desventajas</li>
+                            <li>• Definición general del proyecto de software</li>
+                            <li>• Especificación inicial de requerimientos (Antecedentes)</li>
+                        </ul>
+                        <a href="https://umbedu-my.sharepoint.com/:w:/g/personal/sebastianrevelo_fm_academia_umb_edu_co/EfBgp7NE8rBIvDuvSSBOu28B9zfZvu15d3K9bxsneC3YNw?e=sfdYPv" target="_blank" class="mt-4 inline-block bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">Ver Documento</a>
+                    </div>
+                    <div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-500 rounded-full border-4 border-white dark:border-gray-800"></div>
+                    <div class="w-5/12"></div>
+                </div>
+
+                <div class="timeline-item relative flex items-center justify-between w-full mb-8">
+                    <div class="w-5/12"></div>
+                    <div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full border-4 border-white dark:border-gray-800"></div>
+                    <div class="timeline-content w-5/12 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
+                            <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">Planificado</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fase 2: Desarrollo Core</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Marzo - Mayo 2024</p>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>• Módulo de inventarios</li>
+                            <li>• Sistema de ventas</li>
+                            <li>• Base de datos</li>
+                        </ul>
+                        <button class="mt-4 inline-block bg-gray-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">Documento Próximamente</button>
+                    </div>
+                </div>
+
+                <div class="timeline-item relative flex items-center justify-between w-full mb-8">
+                    <div class="timeline-content w-5/12 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
+                            <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">Planificado</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fase 3: Funcionalidades Avanzadas</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Junio - Agosto 2024</p>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>• CRM y gestión de clientes</li>
+                            <li>• Reportes y analytics</li>
+                            <li>• Integraciones externas</li>
+                        </ul>
+                        <button class="mt-4 inline-block bg-gray-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">Documento Próximamente</button>
+                    </div>
+                    <div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full border-4 border-white dark:border-gray-800"></div>
+                    <div class="w-5/12"></div>
+                </div>
+
+                <div class="timeline-item relative flex items-center justify-between w-full">
+                    <div class="w-5/12"></div>
+                    <div class="timeline-node absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full border-4 border-white dark:border-gray-800"></div>
+                    <div class="timeline-content w-5/12 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
+                            <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">Planificado</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fase 4: Testing y Deploy</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Septiembre - Octubre 2024</p>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>• Testing integral</li>
+                            <li>• Optimización de rendimiento</li>
+                            <li>• Despliegue en producción</li>
+                        </ul>
+                        <button class="mt-4 inline-block bg-gray-400 text-white px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">Documento Próximamente</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gantt Chart -->
+            <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Gráfico de Gantt</h3>
+                <div class="gantt-chart">
+                    <div class="gantt-header grid grid-cols-12 gap-1 mb-4 text-xs text-gray-600 dark:text-gray-400">
+                        <div class="col-span-3">Tarea</div>
+                        <div class="text-center">Ene</div>
+                        <div class="text-center">Feb</div>
+                        <div class="text-center">Mar</div>
+                        <div class="text-center">Abr</div>
+                        <div class="text-center">May</div>
+                        <div class="text-center">Jun</div>
+                        <div class="text-center">Jul</div>
+                        <div class="text-center">Ago</div>
+                        <div class="text-center">Sep</div>
+                    </div>
+                    
+                    <div class="gantt-row grid grid-cols-12 gap-1 mb-2 items-center">
+                        <div class="col-span-3 text-sm text-gray-900 dark:text-white">Fase 1: Análisis y Diseño</div>
+                        <div class="h-6 bg-green-500 rounded"></div>
+                        <div class="h-6 bg-green-500 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                    
+                    <div class="gantt-row grid grid-cols-12 gap-1 mb-2 items-center">
+                        <div class="col-span-3 text-sm text-gray-900 dark:text-white">Fase 2: Desarrollo Core</div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-blue-500 rounded"></div>
+                        <div class="h-6 bg-blue-500 rounded"></div>
+                        <div class="h-6 bg-blue-400 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                    
+                    <div class="gantt-row grid grid-cols-12 gap-1 mb-2 items-center">
+                        <div class="col-span-3 text-sm text-gray-900 dark:text-white">Fase 3: Funcionalidades Avanzadas</div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-orange-500 rounded"></div>
+                        <div class="h-6 bg-orange-500 rounded"></div>
+                        <div class="h-6 bg-orange-500 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                    
+                    <div class="gantt-row grid grid-cols-12 gap-1 items-center">
+                        <div class="col-span-3 text-sm text-gray-900 dark:text-white">Fase 4: Testing y Deploy</div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="h-6 bg-gray-400 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roles Section -->
+    <section id="roles" class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Asignación de Roles y Equipo</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Equipo de desarrollo y responsabilidades en la Fase 1</p>
+            </div>
+
+            <!-- Filters -->
+            <!-- Filters -->
+<div class="flex flex-wrap gap-4 mb-8 justify-center">
+  <button class="filter-btn active px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium transition-colors" data-filter="all">
+    Todos
+  </button>
+  <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium transition-colors hover:bg-gray-300 dark:hover:bg-gray-600" data-filter="completado">
+    Completado
+  </button>
+  <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium transition-colors hover:bg-gray-300 dark:hover:bg-gray-600" data-filter="en-progreso">
+    En Progreso
+  </button>
+  <button class="filter-btn px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium transition-colors hover:bg-gray-300 dark:hover:bg-gray-600" data-filter="pendiente">
+    Pendiente
+  </button>
+  
+  <select id="member-filter" class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium transition-colors hover:bg-gray-300 dark:hover:bg-gray-600">
+    <option value="all">Todos los miembros</option>
+    <option value="Alejandro Castro Alvarez">Alejandro Castro</option>
+    <option value="José Camilo Pérez Daza">José Camilo Pérez</option>
+    <option value="Sebastian Fernando Revelo Meneses">Sebastian Revelo</option>
+    <option value="María Camila Sosa Cediel">María Camila Sosa</option>
+  </select>
+</div>
+
+            <!-- Tasks Table -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tarea</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Responsable</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Progreso</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasks-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Tasks will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Team Performance Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 rounded-xl p-6 text-center">
+                    <img src="https://via.placeholder.com/100" alt="Alejandro Castro Alvarez" class="rounded-full mx-auto mb-4 w-24 h-24 object-cover">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Alejandro Castro Alvarez</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Líder de Análisis y Definición</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        Evaluar ventajas/desventajas, definir problema, solución, justificación, usuario final y retorno de inversión.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900 dark:to-orange-800 rounded-xl p-6 text-center">
+                    <img src="https://via.placeholder.com/100" alt="José Camilo Pérez Daza" class="rounded-full mx-auto mb-4 w-24 h-24 object-cover">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">José Camilo Pérez Daza</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Especialista en Requerimientos</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        Definir requisitos funcionales y no funcionales, alcances del sistema y tecnologías seleccionadas.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 rounded-xl p-6 text-center">
+                    <img src="img/Imagen de WhatsApp 2025-08-01 a las 17.25.06_9f81afaf.jpg" alt="Sebastian Fernando Revelo Meneses" class="rounded-full mx-auto mb-4 w-24 h-24 object-cover">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Sebastian Fernando Revelo Meneses</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Investigador de Antecedentes y Repositorio</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        Crear repositorio, investigar aplicaciones similares y construir cuadro comparativo.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900 dark:to-orange-800 rounded-xl p-6 text-center">
+                    <img src="https://via.placeholder.com/100" alt="María Camila Sosa Cediel" class="rounded-full mx-auto mb-4 w-24 h-24 object-cover">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">María Camila Sosa Cediel</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Diseñadora de Infografía y Presentación</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        Crear infografía y presentación del proyecto (en inglés) con la información de la Fase 1.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Tecnologías Section -->
+<section id="tecnologias" class="py-16 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Stack Tecnológico</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300">Herramientas y tecnologías utilizadas en el desarrollo</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <!-- Tarjeta para C-sharp -->
+            <div class="tech-card bg-white dark:bg-gray-900 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+    <div class="flex items-center mb-4">
+        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
+            <i class="fab fa-cuttlefish text-blue-600 dark:text-blue-400 text-xl mr-0.5"></i>
+            <span class="text-blue-600 dark:text-blue-400 font-bold text-xs">#</span>
+        </div>
+        <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">C-sharp</h3>
+            <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">Backend</span>
+        </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Lenguaje de programación principal para el desarrollo del backend del sistema ERP.</p>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Competencia</span>
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">85%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full transition-all duration-1000" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta para Figma -->
+            <div class="tech-card bg-white dark:bg-gray-900 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fab fa-figma text-purple-600 dark:text-purple-400 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Figma</h3>
+                        <span class="text-sm text-purple-600 dark:text-purple-400 font-medium">Diseño</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Herramienta de diseño para crear prototipos y wireframes de la interfaz de usuario.</p>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Competencia</span>
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">90%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-purple-500 h-2 rounded-full transition-all duration-1000" style="width: 90%"></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta para GitHub -->
+            <div class="tech-card bg-white dark:bg-gray-900 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fab fa-github text-gray-800 dark:text-gray-300 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">GitHub</h3>
+                        <span class="text-sm text-gray-600 dark:text-gray-400 font-medium">Control de Versiones</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Plataforma para alojar el código fuente y colaborar en el desarrollo del proyecto.</p>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Competencia</span>
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">88%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-gray-500 h-2 rounded-full transition-all duration-1000" style="width: 88%"></div>
+                </div>
+            </div>
+
+            <!-- Tarjeta para Visual Studio Community -->
+            <div class="tech-card bg-white dark:bg-gray-900 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-code text-blue-600 dark:text-blue-400 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Visual Studio Community</h3>
+                        <span class="text-sm text-blue-600 dark:text-blue-400 font-medium">IDE</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">Entorno de desarrollo integrado para programar en C-sharp y otras tecnologías.</p>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-600 dark:text-gray-400">Competencia</span>
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">92%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full transition-all duration-1000" style="width: 92%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script src="script.js"></script>
+</body>
+</html>
